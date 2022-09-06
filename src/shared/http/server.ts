@@ -21,7 +21,7 @@ app.get('/', (req: Request, res: Response)=>{
 })
 
 app.listen(port, async ()=>{
-
+    //connection string
     await mongoose.connect(`mongodb+srv://jvlinkin:${db_pass}@cluster0.q3aryd6.mongodb.net/?retryWrites=true&w=majority`)
     console.log("Server running on port 3333 || MongoDB connected!");
 })
