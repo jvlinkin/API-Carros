@@ -1,16 +1,27 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import express, { Request, Response } from "express";
+import mongoose from "mongoose";
 import routes from "./routes";
 
 const app = express();
 app.use(express.json());
 app.use(routes)
-const port = 3333
+const port = process.env.PORT || 3333
+
+
+//ambient variables
+const db_pass = process.env.DB_PASS;
+
+
 
 //Rota de teste
 app.get('/', (req: Request, res: Response)=>{
     return res.json({message:"API it's working."})
 })
 
-app.listen(port, ()=>{
-    console.log("Server is running on port 3333")
+app.listen(port, async ()=>{
+
+    await mongoose.connect(`mongodb+srv://jvlinkin:${db_pass}@cluster0.q3aryd6.mongodb.net/?retryWrites=true&w=majority`)
+    console.log("Server running on port 3333 || MongoDB connected!");
 })
