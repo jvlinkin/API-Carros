@@ -7,6 +7,13 @@ const routesCars = Router();
 const carController = new CarController();
 
 routesCars.get('/', carController.index);
+
+routesCars.get('/:id',celebrate({
+    [Segments.PARAMS]:{
+        id: Joi.string().id().required()
+    }
+}) ,carController.showcar)
+
 routesCars.post('/',celebrate({
     [Segments.BODY]:{
         marca: Joi.string().required(),
@@ -27,5 +34,12 @@ routesCars.put('/:id',celebrate({
         preco: Joi.number().optional()
     }
 }), carController.update)
+
+routesCars.delete('/:id', celebrate({
+    [Segments.PARAMS]:{
+        id: Joi.string().id().required()
+    }
+})
+ ,carController.delete)
 
 export default routesCars;
